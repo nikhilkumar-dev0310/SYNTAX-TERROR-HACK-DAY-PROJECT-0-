@@ -106,39 +106,50 @@ async def analyze(payload: ScriptInput):
     start_time = time.time()
     logger.info("Initiating async call to Gemini API...")
     
-    try:
-        response = await asyncio.wait_for(
-            client.aio.models.generate_content(
-                model=MODEL,
-                contents=f"Analyze the following script:\n\n```\n{script_text}\n```",
-                config=types.GenerateContentConfig(
-                    system_instruction=SYSTEM_INSTRUCTION,
-                    response_mime_type="application/json",
-                    response_json_schema=ThreatAnalysis.model_json_schema(),
-                    temperature=0.2,
+    max_retries = 3
+    base_delay = 2.0
+    
+    for attempt in range(max_retries + 1):
+        try:
+            response = await asyncio.wait_for(
+                client.aio.models.generate_content(
+                    model=MODEL,
+                    contents=f"Analyze the following script:\n\n```\n{script_text}\n```",
+                    config=types.GenerateContentConfig(
+                        system_instruction=SYSTEM_INSTRUCTION,
+                        response_mime_type="application/json",
+                        response_json_schema=ThreatAnalysis.model_json_schema(),
+                        temperature=0.2,
+                    ),
                 ),
-            ),
-            timeout=30.0
-        )
+                timeout=30.0
+            )
 
-        elapsed = time.time() - start_time
-        raw_json = response.text
-        logger.info(f"Gemini response received in {elapsed:.2f}s ({len(raw_json)} chars)")
+            elapsed = time.time() - start_time
+            raw_json = response.text
+            logger.info(f"Gemini response received in {elapsed:.2f}s ({len(raw_json)} chars) on attempt {attempt + 1}")
 
-        result = ThreatAnalysis.model_validate_json(raw_json)
-        return result
+            result = ThreatAnalysis.model_validate_json(raw_json)
+            return result
 
-    except asyncio.TimeoutError:
-        elapsed = time.time() - start_time
-        logger.error(f"Gemini API call timed out after {elapsed:.2f}s")
-        raise HTTPException(
-            status_code=504,
-            detail="Upstream Gemini analysis timed out after 30 seconds.",
-        )
-    except Exception as exc:
-        elapsed = time.time() - start_time
-        logger.exception(f"Gemini analysis failed after {elapsed:.2f}s")
-        raise HTTPException(
-            status_code=502,
-            detail=f"Upstream Gemini analysis error: {exc}",
-        )
+        except asyncio.TimeoutError:
+            elapsed = time.time() - start_time
+            logger.error(f"Gemini API call timed out after {elapsed:.2f}s")
+            raise HTTPException(
+                status_code=504,
+                detail="Upstream Gemini analysis timed out after 30 seconds.",
+            )
+        except Exception as exc:
+            exc_str = str(exc)
+            if "503" in exc_str and attempt < max_retries:
+                delay = base_delay * (2 ** attempt)
+                logger.warning(f"503 UNAVAILABLE on attempt {attempt + 1}. Retrying in {delay}s...")
+                await asyncio.sleep(delay)
+                continue
+                
+            elapsed = time.time() - start_time
+            logger.exception(f"Gemini analysis failed after {elapsed:.2f}s on attempt {attempt + 1}")
+            raise HTTPException(
+                status_code=502,
+                detail=f"Upstream Gemini analysis error: {exc}",
+            )
