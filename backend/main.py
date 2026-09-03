@@ -101,6 +101,7 @@ async def analyze(payload: ScriptInput):
         len(script_text),
         script_text[:80],
     )
+    logger.info(f"EXACT PAYLOAD LENGTH RECEIVED: {len(script_text)} characters")
 
     start_time = time.time()
     logger.info("Initiating async call to Gemini API...")
@@ -117,7 +118,7 @@ async def analyze(payload: ScriptInput):
                     temperature=0.2,
                 ),
             ),
-            timeout=15.0
+            timeout=30.0
         )
 
         elapsed = time.time() - start_time
@@ -132,7 +133,7 @@ async def analyze(payload: ScriptInput):
         logger.error(f"Gemini API call timed out after {elapsed:.2f}s")
         raise HTTPException(
             status_code=504,
-            detail="Upstream Gemini analysis timed out after 15 seconds.",
+            detail="Upstream Gemini analysis timed out after 30 seconds.",
         )
     except Exception as exc:
         elapsed = time.time() - start_time
