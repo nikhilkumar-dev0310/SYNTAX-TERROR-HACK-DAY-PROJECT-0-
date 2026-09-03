@@ -248,7 +248,7 @@
 </div>
 <span class="font-telemetry-micro text-telemetry-micro uppercase px-space-xs py-space-2xs bg-secondary-container/20 text-secondary-fixed rounded">3 Pending</span>
 </div>
-<ul class="space-y-space-sm mt-space-xs">
+<ul id="remediation-list" class="space-y-space-sm mt-space-xs">
 <li class="flex items-start gap-space-sm text-body-sm">
 <span class="w-5 h-5 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-code-sm text-code-sm font-semibold mt-0.5">1</span>
 <div class="flex flex-col">
@@ -542,7 +542,7 @@
 <div class="flex items-center gap-space-sm">
 <div class="bg-surface-container px-space-sm py-space-xs rounded flex items-center gap-space-xs">
 <span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">Format</span>
-<span class="font-code-sm text-code-sm text-secondary-fixed">PowerShell (PS1)</span>
+<span id="format-label" class="font-code-sm text-code-sm text-secondary-fixed">PowerShell</span>
 </div>
 <div class="bg-surface-container px-space-sm py-space-xs rounded flex items-center gap-space-xs">
 <span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">Entropy</span>
@@ -559,11 +559,12 @@
 <div class="flex flex-wrap items-center gap-space-sm">
 <div class="flex items-center bg-surface-container rounded px-space-xs py-space-2xs">
 <label class="font-telemetry-micro text-telemetry-micro text-on-surface-variant px-space-xs">SYNTAX</label>
-<select class="bg-transparent font-code-sm text-code-sm text-on-surface focus:outline-none pr-space-xs cursor-pointer">
-<option class="bg-surface-container-high" selected="">Auto-Detect: PS1</option>
-<option class="bg-surface-container-high">VBScript / WSH</option>
-<option class="bg-surface-container-high">x86 Assembly Shellcode</option>
-<option class="bg-surface-container-high">Batch / CMD</option>
+<select id="syntax-dropdown" class="bg-transparent font-code-sm text-code-sm text-on-surface focus:outline-none pr-space-xs cursor-pointer">
+<option class="bg-surface-container-high" value="Auto-Detect" selected>Auto-Detect</option>
+<option class="bg-surface-container-high" value="JavaScript">JavaScript</option>
+<option class="bg-surface-container-high" value="PowerShell">PowerShell</option>
+<option class="bg-surface-container-high" value="Python">Python</option>
+<option class="bg-surface-container-high" value="VBScript">VBScript</option>
 </select>
 </div>
 <button class="px-space-sm py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm rounded flex items-center gap-space-xs transition-colors" id="diff-toggle-btn">
@@ -595,11 +596,11 @@
 <div class="flex items-center gap-space-2xs">
 <button id="load-sample-btn" class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm border border-surface-container-high" title="Load a sample obfuscated script">Load Sample</button>
 <span class="text-surface-container-highest text-[12px] pl-1 pr-1">•</span>
-<button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="Beautify / Indent">Beautify</button>
+<button id="beautify-btn" class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="Beautify / Indent">Beautify</button>
 <span class="text-surface-container-highest text-[12px]">•</span>
-<button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="Base64 Decode Selected">B64 Dec</button>
+<button id="b64-btn" class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="Base64 Decode Selected">B64 Dec</button>
 <span class="text-surface-container-highest text-[12px]">•</span>
-<button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="XOR Brute Multi-Byte">XOR</button>
+<button id="xor-btn" class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="XOR Brute Multi-Byte">XOR</button>
 </div>
 </div>
 <!-- Code Surface (Monospace Editor) -->
@@ -758,7 +759,7 @@
 <!-- Immediate Triage & Containment Action Bar -->
 <div class="flex flex-wrap items-center justify-between pt-space-xs gap-space-sm border-t border-surface-container">
 <div class="flex items-center gap-space-xs">
-<button class="px-space-sm py-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
+<button id="deploy-rule-btn" class="px-space-sm py-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
 <span class="material-symbols-outlined text-[16px] text-secondary-fixed">shield</span>
 <span>Deploy Detection Rule</span>
 </button>
@@ -767,7 +768,7 @@
 <span>Export STIX 2.1</span>
 </button>
 </div>
-<button class="px-space-md py-space-xs bg-error-container text-error hover:bg-on-error hover:text-error-container rounded font-headline-sm text-body-sm font-semibold flex items-center gap-space-xs transition-colors">
+<button id="escalate-block-btn" class="px-space-md py-space-xs bg-error-container text-error hover:bg-on-error hover:text-error-container rounded font-headline-sm text-body-sm font-semibold flex items-center gap-space-xs transition-colors">
 <span class="material-symbols-outlined text-[16px]">gavel</span>
 <span>Escalate &amp; Block Domain</span>
 </button>
@@ -819,8 +820,100 @@ document.getElementById('quarantine-btn')?.addEventListener('click', function() 
 
 document.getElementById('remediate-all-btn')?.addEventListener('click', function() {
   const btn = this;
-  btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span><span>Remediation Tasks Queued</span>';
-  btn.classList.add('text-secondary-fixed');
+  if (btn.disabled) return;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Executing Remediation...</span>';
+  btn.classList.add('opacity-80');
+  
+  const steps = document.querySelectorAll('#remediation-list > li');
+  let currentStep = 0;
+  
+  function processStep() {
+    if (currentStep < steps.length) {
+      const step = steps[currentStep];
+      const circle = step.querySelector('span');
+      circle.innerHTML = '<span class="material-symbols-outlined text-[14px]">check</span>';
+      circle.classList.remove('bg-surface-container-high', 'text-primary');
+      circle.classList.add('bg-secondary-container', 'text-secondary-fixed');
+      step.classList.add('opacity-50');
+      currentStep++;
+      setTimeout(processStep, 600);
+    } else {
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span><span>Remediation Tasks Complete</span>';
+      btn.classList.remove('opacity-80', 'bg-surface-container-high', 'text-primary');
+      btn.classList.add('bg-secondary-container', 'text-secondary-fixed');
+    }
+  }
+  
+  setTimeout(processStep, 400);
+});
+
+// ─── Interactivity Fixes ─────────────────────────────────────────────
+
+// SYNTAX Dropdown
+document.getElementById('syntax-dropdown')?.addEventListener('change', function(e) {
+  const formatLabel = document.getElementById('format-label');
+  if (formatLabel) {
+    let val = e.target.value;
+    if (val === 'Auto-Detect') val = 'Auto-Detect (PS1)';
+    formatLabel.textContent = val;
+  }
+});
+
+// Utility Buttons for Textarea
+document.getElementById('beautify-btn')?.addEventListener('click', function() {
+  const codePane = document.getElementById('raw-script-code');
+  if (!codePane || !codePane.value) return;
+  // Simple fake beautify: add some spaces after semicolons or braces
+  codePane.value = codePane.value.replace(/;/g, ';\n').replace(/{/g, '{\n  ').replace(/}/g, '\n}');
+  showToast('Code beautified');
+});
+
+document.getElementById('b64-btn')?.addEventListener('click', function() {
+  const codePane = document.getElementById('raw-script-code');
+  if (!codePane || !codePane.value) return;
+  try {
+    // Basic attempt to decode base64 in the textarea
+    codePane.value = atob(codePane.value.trim());
+    showToast('Base64 Decoded');
+  } catch (e) {
+    showToast('Error: Invalid Base64 content');
+  }
+});
+
+document.getElementById('xor-btn')?.addEventListener('click', function() {
+  const codePane = document.getElementById('raw-script-code');
+  if (!codePane || !codePane.value) return;
+  const key = prompt('Enter XOR key (integer 0-255):', '42');
+  if (!key) return;
+  const keyNum = parseInt(key, 10);
+  if (isNaN(keyNum)) {
+    showToast('Error: Invalid key');
+    return;
+  }
+  let out = '';
+  for (let i = 0; i < codePane.value.length; i++) {
+    out += String.fromCharCode(codePane.value.charCodeAt(i) ^ keyNum);
+  }
+  codePane.value = out;
+  showToast('XOR Decoded');
+});
+
+// Fake Actions
+function showToast(msg) {
+  let toast = document.createElement('div');
+  toast.className = 'fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-surface-container-high text-on-surface px-space-md py-space-sm rounded shadow-lg font-body-sm z-50 transition-opacity duration-300';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 2500);
+}
+
+document.getElementById('deploy-rule-btn')?.addEventListener('click', () => {
+  showToast('Detection Rule Deployed Successfully to Edge Gateway');
+});
+
+document.getElementById('escalate-block-btn')?.addEventListener('click', () => {
+  showToast('Domain Blocked and Incident Escalated to IR Lead');
 });
 
 // ─── View Toggle (Activates Stitch data-path mechanism) ──────────────
