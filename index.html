@@ -158,7 +158,7 @@
 <span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">shield</span>
 <span>Approve Containment</span>
 </button>
-<button class="px-space-md py-space-sm bg-surface-container-high hover:bg-surface-bright text-on-surface font-body-md text-body-md font-medium rounded transition-colors flex items-center gap-space-xs shadow-md">
+<button id="export-brief-btn" class="px-space-md py-space-sm bg-surface-container-high hover:bg-surface-bright text-on-surface font-body-md text-body-md font-medium rounded transition-colors flex items-center gap-space-xs shadow-md">
 <span class="material-symbols-outlined text-[18px] text-on-surface-variant">picture_as_pdf</span>
 <span>Export Brief</span>
 </button>
@@ -429,7 +429,7 @@
 <span class="font-telemetry-micro text-telemetry-micro px-space-xs py-space-2xs bg-error-container/60 text-error rounded">APT29 Infrastructure</span>
 </td>
 <td class="py-space-sm px-space-md text-right">
-<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors">Add to Blocklist</button>
+<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors" onclick="showToast('Added to Edge Blocklist')">Add to Blocklist</button>
 </td>
 </tr>
 <tr class="hover:bg-surface-container/40 transition-colors">
@@ -447,7 +447,7 @@
 <span class="font-telemetry-micro text-telemetry-micro px-space-xs py-space-2xs bg-surface-container text-tertiary-fixed-dim rounded">TOR Exit Relay</span>
 </td>
 <td class="py-space-sm px-space-md text-right">
-<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors">Add to Blocklist</button>
+<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors" onclick="showToast('Added to Edge Blocklist')">Add to Blocklist</button>
 </td>
 </tr>
 <tr class="hover:bg-surface-container/40 transition-colors">
@@ -465,7 +465,7 @@
 <span class="font-telemetry-micro text-telemetry-micro px-space-xs py-space-2xs bg-surface-container text-on-surface rounded">Trojan Dropper</span>
 </td>
 <td class="py-space-sm px-space-md text-right">
-<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors">Purge Inboxes</button>
+<button class="px-space-xs py-1 text-code-sm text-primary hover:bg-surface-container rounded transition-colors" onclick="showToast('Purge Task Initiated')">Purge Inboxes</button>
 </td>
 </tr>
 </tbody>
@@ -567,11 +567,11 @@
 <option class="bg-surface-container-high" value="VBScript">VBScript</option>
 </select>
 </div>
-<button class="px-space-sm py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm rounded flex items-center gap-space-xs transition-colors" id="diff-toggle-btn">
+<button id="diff-toggle-btn" disabled class="px-space-sm py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm rounded flex items-center gap-space-xs transition-colors opacity-50 cursor-not-allowed" title="Run analysis first">
 <span class="material-symbols-outlined text-[16px]">difference</span>
 <span>Diff Original</span>
 </button>
-<button class="px-space-sm py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm rounded flex items-center gap-space-xs transition-colors">
+<button id="sandbox-run-btn" class="px-space-sm py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm rounded flex items-center gap-space-xs transition-colors">
 <span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">science</span>
 <span>Run in Sandbox</span>
 </button>
@@ -642,10 +642,10 @@
 </button>
 </div>
 <div class="hidden sm:flex items-center gap-space-2xs pr-space-xs">
-<button class="p-space-xs text-on-surface-variant hover:text-primary rounded hover:bg-surface-container transition-colors" title="Copy clean output">
+<button class="p-space-xs text-on-surface-variant hover:text-primary rounded hover:bg-surface-container transition-colors" title="Copy clean output" onclick="navigator.clipboard.writeText(document.getElementById('adv-deobfuscated-code')?.textContent || ''); showToast('Copied to clipboard')">
 <span class="material-symbols-outlined text-[18px]">content_copy</span>
 </button>
-<button class="p-space-xs text-on-surface-variant hover:text-primary rounded hover:bg-surface-container transition-colors" title="Download clean file">
+<button class="p-space-xs text-on-surface-variant hover:text-primary rounded hover:bg-surface-container transition-colors" title="Download clean file" onclick="downloadFile('clean_payload.txt', document.getElementById('adv-deobfuscated-code')?.textContent || '')">
 <span class="material-symbols-outlined text-[18px]">download</span>
 </button>
 </div>
@@ -661,11 +661,11 @@
 <div class="flex items-center gap-space-sm">
 <button class="px-space-sm py-space-2xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-code-sm text-code-sm flex items-center gap-space-xs transition-colors">
 <span class="material-symbols-outlined text-[14px]">account_tree</span>
-<span>AST Tree</span>
+<span onclick="showToast('AST Tree Visualization Not Available')">AST Tree</span>
 </button>
 <button class="px-space-sm py-space-2xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-code-sm text-code-sm flex items-center gap-space-xs transition-colors">
 <span class="material-symbols-outlined text-[14px]">file_download</span>
-<span>Clean Script</span>
+<span onclick="downloadFile('clean_script.txt', document.getElementById('adv-deobfuscated-code')?.textContent || '')">Clean Script</span>
 </button>
 </div>
 </div>
@@ -763,7 +763,7 @@
 <span class="material-symbols-outlined text-[16px] text-secondary-fixed">shield</span>
 <span>Deploy Detection Rule</span>
 </button>
-<button class="px-space-sm py-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
+<button id="export-stix-btn" class="px-space-sm py-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-body-sm text-body-sm flex items-center gap-space-xs transition-colors">
 <span class="material-symbols-outlined text-[16px]">share</span>
 <span>Export STIX 2.1</span>
 </button>
@@ -916,6 +916,144 @@ document.getElementById('escalate-block-btn')?.addEventListener('click', () => {
   showToast('Domain Blocked and Incident Escalated to IR Lead');
 });
 
+// Diff Toggle
+document.getElementById('diff-toggle-btn')?.addEventListener('click', () => {
+  if (!window.lastAnalysisResult) return;
+  const rawContent = document.getElementById('raw-script-code').value;
+  const deobContent = window.lastAnalysisResult.deobfuscated_code;
+  
+  // Create a simple modal for the diff
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 bg-background/90 z-50 flex items-center justify-center p-space-lg backdrop-blur-sm';
+  modal.innerHTML = `
+    <div class="bg-surface-container-lowest rounded-xl shadow-2xl w-full max-w-7xl max-h-full flex flex-col overflow-hidden border border-surface-container">
+      <div class="px-space-md py-space-sm bg-surface-container flex items-center justify-between">
+        <h3 class="font-headline-sm text-body-lg text-primary">Payload Diff View</h3>
+        <button class="text-on-surface-variant hover:text-on-surface p-1" onclick="this.closest('.fixed').remove()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="flex-1 overflow-auto flex gap-space-sm p-space-sm">
+        <div class="flex-1 flex flex-col gap-2">
+          <div class="font-code-sm text-on-surface-variant">Original Raw Input</div>
+          <textarea class="w-full h-[600px] bg-surface-container p-space-sm font-code-sm text-code-sm text-on-surface rounded outline-none resize-none border-none" readonly>${rawContent}</textarea>
+        </div>
+        <div class="flex-1 flex flex-col gap-2">
+          <div class="font-code-sm text-primary">De-obfuscated Output</div>
+          <textarea class="w-full h-[600px] bg-surface-container p-space-sm font-code-sm text-code-sm text-primary-container rounded outline-none resize-none border-none" readonly>${deobContent}</textarea>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+});
+
+// Run in Sandbox
+document.getElementById('sandbox-run-btn')?.addEventListener('click', function() {
+  const btn = this;
+  if (btn.disabled) return;
+  btn.disabled = true;
+  const originalHtml = btn.innerHTML;
+  btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span><span>Running...</span>';
+  
+  setTimeout(() => {
+    btn.innerHTML = originalHtml;
+    btn.disabled = false;
+    
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-background/90 z-50 flex items-center justify-center p-space-lg backdrop-blur-sm';
+    modal.innerHTML = `
+      <div class="bg-surface-container-lowest rounded-xl shadow-2xl w-full max-w-3xl flex flex-col overflow-hidden border border-surface-container">
+        <div class="px-space-md py-space-sm bg-surface-container flex items-center justify-between">
+          <div class="flex items-center gap-space-sm">
+            <h3 class="font-headline-sm text-body-lg text-primary">Sandbox Execution Trace</h3>
+            <span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant text-[10px] uppercase font-bold rounded">Simulated</span>
+          </div>
+          <button class="text-on-surface-variant hover:text-on-surface p-1" onclick="this.closest('.fixed').remove()">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="p-space-md font-code-sm text-code-sm text-on-surface flex flex-col gap-2 h-64 overflow-y-auto">
+          <div class="text-secondary-fixed">[0.00s] Environment initialized (Windows 11, x64)</div>
+          <div class="text-on-surface-variant opacity-70">[0.12s] Process spawned: powershell.exe -ExecutionPolicy Bypass</div>
+          <div class="text-on-surface-variant opacity-70">[0.45s] API Hooked: kernel32.dll!VirtualAlloc</div>
+          <div class="text-error font-semibold">[0.89s] Network Call Intercepted: GET https://cdn-updates-win.org/gate.php</div>
+          <div class="text-on-surface-variant opacity-70">[0.90s] DNS sinkholed, returning 404</div>
+          <div class="text-on-surface-variant opacity-70">[1.20s] Thread suspended by AMSI (simulated bypass)</div>
+          <div class="text-primary-container mt-4">>> Sandbox execution complete — 0 side effects observed on host.</div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }, 1500);
+});
+
+// Export Utilities
+function downloadFile(filename, content, type = 'text/plain') {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('export-brief-btn')?.addEventListener('click', () => {
+  if (!window.lastAnalysisResult) {
+    showToast('No analysis available. Please run De-obfuscate first.');
+    return;
+  }
+  const data = window.lastAnalysisResult;
+  const content = \`THREAT BRIEF: \${data.threat_name}
+======================================================
+INTENT & SUMMARY:
+\${data.intent_explanation}
+
+DE-OBFUSCATED PAYLOAD:
+------------------------------------------------------
+\${data.deobfuscated_code}
+
+YARA RULE:
+------------------------------------------------------
+\${data.yara_rule}
+\`;
+  downloadFile(\`\${data.threat_name.replace(/\\s+/g, '_')}_brief.txt\`, content);
+});
+
+document.getElementById('export-stix-btn')?.addEventListener('click', () => {
+  if (!window.lastAnalysisResult) {
+    showToast('No analysis available. Please run De-obfuscate first.');
+    return;
+  }
+  const data = window.lastAnalysisResult;
+  const stix = {
+    "type": "bundle",
+    "id": "bundle--" + crypto.randomUUID(),
+    "spec_version": "2.1",
+    "objects": [
+      {
+        "type": "indicator",
+        "id": "indicator--" + crypto.randomUUID(),
+        "created": new Date().toISOString(),
+        "name": data.threat_name + " YARA Rule",
+        "pattern": data.yara_rule,
+        "pattern_type": "yara"
+      },
+      {
+        "type": "malware",
+        "id": "malware--" + crypto.randomUUID(),
+        "name": data.threat_name,
+        "description": data.intent_explanation,
+        "is_family": false
+      }
+    ]
+  };
+  downloadFile(\`\${data.threat_name.replace(/\\s+/g, '_')}_stix2.json\`, JSON.stringify(stix, null, 2), 'application/json');
+});
+
 // ─── View Toggle (Activates Stitch data-path mechanism) ──────────────
 function switchView(targetPath) {
   // Only switch if a matching view panel exists
@@ -1032,6 +1170,14 @@ async function analyzeScript(scriptText) {
     }
 
     var data = await response.json();
+    window.lastAnalysisResult = data;
+    
+    var diffBtn = document.getElementById('diff-toggle-btn');
+    if (diffBtn) {
+      diffBtn.disabled = false;
+      diffBtn.title = 'Compare original and deobfuscated payload';
+      diffBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
 
     // ── Populate BOTH views from a single response ──
     _populateSimpleView(data);
