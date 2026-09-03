@@ -1007,20 +1007,20 @@ document.getElementById('export-brief-btn')?.addEventListener('click', () => {
     return;
   }
   const data = window.lastAnalysisResult;
-  const content = \`THREAT BRIEF: \${data.threat_name}
+  const content = `THREAT BRIEF: ${data.threat_name}
 ======================================================
 INTENT & SUMMARY:
-\${data.intent_explanation}
+${data.intent_explanation}
 
 DE-OBFUSCATED PAYLOAD:
 ------------------------------------------------------
-\${data.deobfuscated_code}
+${data.deobfuscated_code}
 
 YARA RULE:
 ------------------------------------------------------
-\${data.yara_rule}
-\`;
-  downloadFile(\`\${data.threat_name.replace(/\\s+/g, '_')}_brief.txt\`, content);
+${data.yara_rule}
+`;
+  downloadFile(`${data.threat_name.replace(/\s+/g, '_')}_brief.txt`, content);
 });
 
 document.getElementById('export-stix-btn')?.addEventListener('click', () => {
@@ -1051,7 +1051,7 @@ document.getElementById('export-stix-btn')?.addEventListener('click', () => {
       }
     ]
   };
-  downloadFile(\`\${data.threat_name.replace(/\\s+/g, '_')}_stix2.json\`, JSON.stringify(stix, null, 2), 'application/json');
+  downloadFile(`${data.threat_name.replace(/\s+/g, '_')}_stix2.json`, JSON.stringify(stix, null, 2), 'application/json');
 });
 
 // ─── View Toggle (Activates Stitch data-path mechanism) ──────────────
