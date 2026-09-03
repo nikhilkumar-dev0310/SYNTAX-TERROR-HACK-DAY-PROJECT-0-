@@ -1,5 +1,6 @@
 .DS_Store
 .localized
+*.key
 __pycache__/
 *.pyc
 .env
