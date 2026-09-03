@@ -1,2 +1,7 @@
 .DS_Store
 .localized
+__pycache__/
+*.pyc
+.env
+venv/
+.venv/
