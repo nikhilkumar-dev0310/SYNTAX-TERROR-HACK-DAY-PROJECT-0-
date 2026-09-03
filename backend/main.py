@@ -1,6 +1,8 @@
 import os
 import json
 import logging
+import asyncio
+import time
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -100,26 +102,41 @@ async def analyze(payload: ScriptInput):
         script_text[:80],
     )
 
+    start_time = time.time()
+    logger.info("Initiating async call to Gemini API...")
+    
     try:
-        response = client.models.generate_content(
-            model=MODEL,
-            contents=f"Analyze the following script:\n\n```\n{script_text}\n```",
-            config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_INSTRUCTION,
-                response_mime_type="application/json",
-                response_json_schema=ThreatAnalysis.model_json_schema(),
-                temperature=0.2,
+        response = await asyncio.wait_for(
+            client.aio.models.generate_content(
+                model=MODEL,
+                contents=f"Analyze the following script:\n\n```\n{script_text}\n```",
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM_INSTRUCTION,
+                    response_mime_type="application/json",
+                    response_json_schema=ThreatAnalysis.model_json_schema(),
+                    temperature=0.2,
+                ),
             ),
+            timeout=15.0
         )
 
+        elapsed = time.time() - start_time
         raw_json = response.text
-        logger.info("Gemini response received (%d chars)", len(raw_json))
+        logger.info(f"Gemini response received in {elapsed:.2f}s ({len(raw_json)} chars)")
 
         result = ThreatAnalysis.model_validate_json(raw_json)
         return result
 
+    except asyncio.TimeoutError:
+        elapsed = time.time() - start_time
+        logger.error(f"Gemini API call timed out after {elapsed:.2f}s")
+        raise HTTPException(
+            status_code=504,
+            detail="Upstream Gemini analysis timed out after 15 seconds.",
+        )
     except Exception as exc:
-        logger.exception("Gemini analysis failed")
+        elapsed = time.time() - start_time
+        logger.exception(f"Gemini analysis failed after {elapsed:.2f}s")
         raise HTTPException(
             status_code=502,
             detail=f"Upstream Gemini analysis error: {exc}",
