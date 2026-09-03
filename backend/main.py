@@ -81,9 +81,28 @@ app.add_middleware(
 )
 
 
+import httpx
+
 @app.get("/health")
 async def health():
     return {"status": "ok", "model": MODEL}
+
+
+@app.get("/models")
+async def list_models():
+    """
+    List all available Gemini models using the REST API directly
+    to ensure we get the full raw list as JSON.
+    """
+    try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
+        async with httpx.AsyncClient() as httpx_client:
+            resp = await httpx_client.get(url, timeout=10.0)
+            resp.raise_for_status()
+            return resp.json()
+    except Exception as exc:
+        logger.exception("Failed to fetch models")
+        raise HTTPException(status_code=502, detail=f"Failed to fetch models: {exc}")
 
 
 @app.post("/analyze", response_model=ThreatAnalysis)
